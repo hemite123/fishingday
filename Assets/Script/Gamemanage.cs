@@ -28,6 +28,9 @@ public class Gamemanage : MonoBehaviour
     public int selectshop = 0,itemeneeded = 1,openselectbns = 0;
     public TMPro.TextMeshProUGUI dynamicItemNeeded,dynamicCalc,notificaiton,goldText,interactText;
     public Image buyandsellitemimage, upbands, downbands,triggerfish;
+    public AudioSource adsource;
+    public Slider slider;
+    public GameObject settingpanel,tutorial;
 
     private void Awake()
     {
@@ -39,6 +42,7 @@ public class Gamemanage : MonoBehaviour
     {
         itemdb = ItemDatabase.Instance.Value;
         indicatorTrigger = fishIndicator.GetComponent<CollisionManagement>();
+        adsource = this.GetComponent<AudioSource>();
         invent = inventory.instance.Value;
         foreach(Item it in itemdb.itemDb)
         {
@@ -63,6 +67,7 @@ public class Gamemanage : MonoBehaviour
     void Update()
     {
         goldText.text = currency.ToString();
+        adsource.volume = slider.value;
         if (holdingbutton > 2f)
         {
             timeradded = 0.1f;
@@ -655,6 +660,15 @@ public class Gamemanage : MonoBehaviour
         notificaiton.gameObject.SetActive(false);
     }
 
+    public void Setting(bool setup)
+    {
+        settingpanel.SetActive(setup);
+    }
+
+    public void Tutorial(bool setup)
+    {
+        tutorial.SetActive(setup);
+    }
    
 }
 
